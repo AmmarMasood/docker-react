@@ -14,5 +14,6 @@ RUN npm run build
 FROM nginx
 # the next line says copy from builder phase, first agument is what folder to copyand
 #  2nd argument is where we want to put that in nginx, nginx automatically serve anything in usr/share/nginx/html
+EXPOSE 80
 COPY --from=builder /app/build /usr/share/nginx/html
 
