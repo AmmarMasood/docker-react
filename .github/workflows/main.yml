@@ -28,6 +28,9 @@ jobs:
       - run: docker run -e CI=true ammarmasood/docker-test npm test
       
  
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
+        
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v18
         with:
@@ -37,3 +40,5 @@ jobs:
           environment_name: Dockerreact-env
           existing_bucket_name: elasticbeanstalk-ap-south-1-942795962923
           region: ap-south-1
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
